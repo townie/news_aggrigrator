@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Submissions</title>
+    <link rel="stylesheet" href="home.css">
+  </head>
+
+  <body>
+    <h1>Submit Your News Article:</h1>
+
+    <form action="/articles/new" method="post">
+      <label for="title">Article Title:</label>
+      <input type="text" id="title" name="title">
+
+      <label for="URL">Article URL:</label>
+      <input type="text" id="URL" name="URL">
+
+      <label for="description">Article Summary:</label>
+      <input type="text" id="description" name="description">
+
+      <input type="submit">
+
+
+    </form>
+    <%if error_code == "empty_string"%>
+      <p>You've entered falsely!</p>
+    <%elsif error_code == "too_few"%>
+      <p>Maybe you should add more to the description...</p>
+    <% end %>
+
+
+
+
+  </body>
+</html>
