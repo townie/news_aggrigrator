@@ -8,9 +8,9 @@
   <body>
     <h1>New News</h1>
       <ul>
-        <%articles_array.each do |article| %>
-          <li><a href="<%=article[1]%>"> <%=article[0]%></a>
-              <%=article[2]%>
+        <% articles_hash.each do |url, info| %>
+          <li><a href="<%= url %>"> <%= info["article"] %></a>
+              <%= info["description"] %>
           </li>
         <%end%>
       </ul>
