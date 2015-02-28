@@ -23,6 +23,19 @@ def sites_hash
   articles_hash
 end
 
+def not_valid_params?
+  params["title"] == "" || params["URL"] == "" || params["description"] == ""
+end
+
+def submissions_error(error_string)
+  session["error"] = error_string
+  redirect "/articles/new"
+end
+
+def description_length?
+  params["description"].length < 20
+end
+
 get '/articles' do
   articles_hash = sites_hash
   erb :news_home, locals: { articles_hash: articles_hash }
@@ -33,14 +46,10 @@ get '/articles/new' do
 end
 
 post '/articles/new' do
-  if params["title"] == "" || params["URL"] == "" || params["description"] == ""
-    # $error_code = "empty_string"
-    session["error"] = "empty_string"
-    # render notice: "You have an empty field"
-    redirect "/articles/new"
-  elsif params["description"].length < 20
-    session["error"] = "too_few"
-    redirect "/articles/new"
+  if not_valid_params?
+    submissions_error("empty_string")
+  elsif description_length?
+    submissions_error("too_few")
   else
     submission_array = [params["title"], params["URL"], params["description"]]
     CSV.open("./articles.csv", "a") do |csv|
@@ -49,5 +58,4 @@ post '/articles/new' do
     session["error"] = nil
     redirect '/articles'
   end
-
 end
