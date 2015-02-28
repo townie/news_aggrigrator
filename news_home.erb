@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>News Homepage</title>
+    <link rel="stylesheet" href="home.css">
+  </head>
+
+  <body>
+    <h1>New News</h1>
+      <ul>
+        <%articles_array.each do |article| %>
+          <li><a href="<%=article[1]%>"> <%=article[0]%></a>
+              <%=article[2]%>
+          </li>
+        <%end%>
+      </ul>
+      <a href="/articles/new"> Submit Your Article Here</a>
+  </body>
+</html>
